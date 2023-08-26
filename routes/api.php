@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\EventoController;
+use App\Http\Controllers\Api\PartcipanteController;
+use App\Models\Partipante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +20,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::apiResource("eventos",EventoController::class);
+
+Route::apiResource("eventos.participantes",PartcipanteController::class)
+ ->scoped(["participante"=>"evento"]);
+
+
+
