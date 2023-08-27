@@ -10,6 +10,8 @@ class Evento extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["nome","descricao","start_time","end_time","user_id"];
+
     public function user()
     {
         return $this->belongsTo(User::class);

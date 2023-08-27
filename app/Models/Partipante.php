@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Partipante extends Model
 {
     use HasFactory;
+    protected $fillable =["evento_id","user_id"];
 
     public function user()
     {
