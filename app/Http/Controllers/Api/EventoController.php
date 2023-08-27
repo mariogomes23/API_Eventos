@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventoResource;
+use App\Http\Resources\UserResource;
 use App\Models\Evento;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class EventoController extends Controller
     public function index()
     {
         //
-        return Evento::with("user")->get();
+        return EventoResource::collection(Evento::with("user")->get(),200);
     }
 
     /**
@@ -46,13 +48,14 @@ class EventoController extends Controller
 
      
 
-        return $event;
+        return new EventoResource($event,200);
 
     }
 
     public function show(Evento $evento)
     {
-        return $evento;
+        $evento->load("user","participantes");
+        return new EventoResource($evento);
         //
     }
 
@@ -72,7 +75,7 @@ class EventoController extends Controller
             "user_id"=>["sometimes","exists:users,id"]
         ]));
 
-        return $evento;
+        return new EventoResource($evento);
      
 
 

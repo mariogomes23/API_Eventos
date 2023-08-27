@@ -19,7 +19,7 @@ class Evento extends Model
 
     public function participantes():HasMany
     {
-        return $this->hasMany(Participante::class);
+        return $this->hasMany(Partipante::class);
     }
 
     
