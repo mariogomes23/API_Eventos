@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource("eventos",EventoController::class);
 Route::post("/login",[AuthController::class,"login"]);
+Route::post("/logout",[AuthController::class,"logout"])->middleware("auth:sanctum");
 Route::apiResource("eventos.participantes",PartcipanteController::class)
  ->scoped(["participante"=>"evento"]);
 

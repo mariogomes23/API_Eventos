@@ -7,6 +7,7 @@ use App\Http\Resources\ParticipanteResource;
 use App\Models\Evento;
 use App\Models\Partipante;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class PartcipanteController extends Controller
@@ -14,6 +15,13 @@ class PartcipanteController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+        $this->middleware("auth:sanctum")->except(["index","show"]);
+        $this->authorizeResource(Partipante::class,"participante");
+        
+     }
     public function index(Evento $evento)
     {
         $participante = $evento->participantes()->latest();
@@ -58,6 +66,7 @@ class PartcipanteController extends Controller
     public function destroy(string $evento,Partipante $participante)
     {
         //
+     //  Gate::authorize("apagar-participante",$evento,$participante);
         $participante->delete();
         return response(status:204);
     }

@@ -7,6 +7,7 @@ use App\Http\Resources\EventoResource;
 use App\Http\Resources\UserResource;
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EventoController extends Controller
 {
@@ -17,6 +18,7 @@ class EventoController extends Controller
      public function __construct()
      {
         $this->middleware("auth:sanctum")->except(["index","show"]);
+        $this->authorizeResource(Evento::class,"evento");
         
      }
     public function index()
@@ -72,6 +74,13 @@ class EventoController extends Controller
     {
 
         //
+       // if(Gate::denies("atualizar-evento",$evento))
+        //{
+          //  abort(403,"nao esta autorizado");
+        //}
+
+        Gate::authorize("atualizar-evento",$evento);
+
 
        $evento->update($request->validate([
             "descricao" => ["nullable", "string"],
