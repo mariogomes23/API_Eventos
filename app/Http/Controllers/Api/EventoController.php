@@ -13,6 +13,12 @@ class EventoController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+        $this->middleware("auth:sanctum")->except(["index","show"]);
+        
+     }
     public function index()
     {
         //
@@ -41,7 +47,7 @@ class EventoController extends Controller
             "descricao"=>$request->descricao,
             "end_time"=>$request->end_time,
             "start_time"=>$request->start_time,
-            "user_id"=>$request->input("user_id")
+            "user_id"=>$request->user()->id
             
               
         ]);
