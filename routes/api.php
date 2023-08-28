@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventoController;
 use App\Http\Controllers\Api\PartcipanteController;
 use App\Models\Partipante;
@@ -24,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource("eventos",EventoController::class);
-
+Route::post("/login",[AuthController::class,"login"]);
 Route::apiResource("eventos.participantes",PartcipanteController::class)
  ->scoped(["participante"=>"evento"]);
 
